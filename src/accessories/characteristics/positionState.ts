@@ -2,7 +2,7 @@ import { CharacteristicGetCallback } from "homebridge";
 import { TuyaWebCharacteristic } from "./base";
 import { BaseAccessory } from "../BaseAccessory";
 import { DeviceState } from "../../api/response";
-import { CoverAccessory } from "..";
+import { WindowAccessory } from "..";
 
 export class PositionStateCharacteristic extends TuyaWebCharacteristic {
   public static Title = "Characteristic.PositionState";
@@ -20,6 +20,6 @@ export class PositionStateCharacteristic extends TuyaWebCharacteristic {
   }
 
   updateValue(data: DeviceState, callback?: CharacteristicGetCallback): void {
-    callback && callback(null, (<CoverAccessory>this.accessory).motor);
+    callback && callback(null, (<WindowAccessory>this.accessory).motor);
   }
 }
