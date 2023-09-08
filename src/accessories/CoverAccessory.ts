@@ -16,7 +16,7 @@ export class CoverAccessory extends BaseAccessory {
 
   constructor(
     platform: TuyaWebPlatform,
-    homebridgeAccessory: HomebridgeAccessory,
+    homebridgeAccessory: HomebridgeAccessory | undefined,
     deviceConfig: TuyaDevice
   ) {
     super(
