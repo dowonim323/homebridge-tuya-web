@@ -10,7 +10,7 @@ import { TuyaWebCharacteristic } from "./base";
 import { BaseAccessory } from "../BaseAccessory";
 import { DeviceState } from "../../api/response";
 import delay from "../../helpers/delay";
-import { WindowAccessory } from "../WindowAccessory";
+import { CoverAccessory } from "../CoverAccessory";
 
 export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
   public static Title = "Characteristic.TargetPosition";
@@ -34,7 +34,7 @@ export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
   }
 
   public getRemoteValue(callback: CharacteristicGetCallback): void {
-    const a = <WindowAccessory>this.accessory;
+    const a = <CoverAccessory>this.accessory;
     callback && callback(null, a.target);
   }
 
@@ -44,7 +44,7 @@ export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
   ): void {
     const value = (homekitValue as number) === 0 ? 0 : 1;
 
-    const windowAccessory = <WindowAccessory>this.accessory;
+    const coverAccessory = <CoverAccessory>this.accessory;
     const target = value ? 100 : 0;
 
     this.debug("Setting targetPosition to %d", target);
@@ -56,19 +56,19 @@ export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
         callback();
 
         this.debug("Setting targetPosition to %d", target);
-        windowAccessory.target = target;
+        coverAccessory.target = target;
         this.accessory.setCharacteristic(
           this.accessory.platform.Characteristic.TargetPosition,
           target,
           true
         );
 
-        windowAccessory.motor = value
+        coverAccessory.motor = value
           ? this.accessory.platform.Characteristic.PositionState.INCREASING
           : this.accessory.platform.Characteristic.PositionState.DECREASING;
         this.accessory.setCharacteristic(
           this.accessory.platform.Characteristic.PositionState,
-          windowAccessory.motor,
+          coverAccessory.motor,
           true
         );
 
@@ -79,14 +79,14 @@ export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
           target
         );
 
-        windowAccessory.position = target;
+        coverAccessory.position = target;
         this.accessory.setCharacteristic(
           this.accessory.platform.Characteristic.CurrentPosition,
-          windowAccessory.position,
+          coverAccessory.position,
           true
         );
 
-        windowAccessory.motor = this.accessory.platform.Characteristic.PositionState.STOPPED;
+        coverAccessory.motor = this.accessory.platform.Characteristic.PositionState.STOPPED;
         this.accessory.setCharacteristic(
           this.accessory.platform.Characteristic.PositionState,
           this.accessory.platform.Characteristic.PositionState.STOPPED,
@@ -97,6 +97,6 @@ export class TargetPositionCharacteristic extends TuyaWebCharacteristic {
   }
 
   updateValue(data: DeviceState, callback?: CharacteristicGetCallback): void {
-    callback && callback(null, (<WindowAccessory>this.accessory).target);
+    callback && callback(null, (<CoverAccessory>this.accessory).target);
   }
 }
