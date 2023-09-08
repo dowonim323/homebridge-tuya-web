@@ -1,8 +1,7 @@
 import { CharacteristicGetCallback } from "homebridge";
 import { TuyaWebCharacteristic } from "./base";
 import { BaseAccessory } from "../BaseAccessory";
-import { CoverState, DeviceState, ExtendedBoolean } from "../../api/response";
-import { TuyaBoolean } from "../../helpers/TuyaBoolean";
+import { DeviceState } from "../../api/response";
 import { CoverAccessory } from "..";
 
 export class CurrentPositionCharacteristic extends TuyaWebCharacteristic {
